@@ -4,7 +4,7 @@ import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 
-// import OnlyScroll from 'only-scrollbar';
+import OnlyScroll from 'only-scrollbar';
 
 const API_KEY = '35141798-2bab5ffbeb44d8443663db9b1';
 const BASE_URL = 'https://pixabay.com/api/';
@@ -61,7 +61,7 @@ async function fetchImages(url){
     lightbox.refresh();
     return hits;
   } catch {
-    loadMoreBtn.classList.add('is-hidden');
+    // loadMoreBtn.classList.add('is-hidden');
     Notify.failure("We're sorry, but you've reached the end of search results.");
   }
 }
@@ -69,7 +69,6 @@ async function fetchImages(url){
 function renderImageCards(hits) {
   return hits.hits.map(({webformatURL, largeImageURL, tags, likes, views, comments,  downloads}) => {
     return `
-    
     <a class="card-link" href='${largeImageURL}'><div class="photo-card"><img class="card-img" src="${webformatURL}" alt="${tags}" loading="lazy"/>
     <div class="info">
       <p class="info-item">
@@ -99,9 +98,17 @@ function resetPage(){
 }
 
 
-// const { height: cardHeight } = document
+// const scroll = new OnlyScroll(document.querySelector('.scroll-container'));
+
+// const scroll = new OnlyScroll('#scroll-container-id', {
+//     damping: 0.8,
+//     eventContainer: window
+// });
+
+
+// const scroll = new OnlyScroll({ height: cardHeight } = document
 //   .querySelector(".gallery")
-//   .firstElementChild.getBoundingClientRect();
+//   .firstElementChild.getBoundingClientRect());
 
 // window.scrollBy({
 //   top: cardHeight * 2,
@@ -113,6 +120,6 @@ function infinitScroll() {
     while(true) {
       let windowRelativeBottom = document.documentElement.getBoundingClientRect().bottom;
     if (windowRelativeBottom > document.documentElement.clientHeight + 100) break;
-        return onLoadMore();
+      return onLoadMore();
     }
   }
