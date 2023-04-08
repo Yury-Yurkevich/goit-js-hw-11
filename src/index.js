@@ -57,7 +57,7 @@ async function fetchImages(url){
     const hits = await response.data;
     imagesContainer.insertAdjacentHTML('beforeend', renderImageCards(hits));
     currentPage += 1;
-    loadMoreBtn.classList.remove('is-hidden');
+    // loadMoreBtn.classList.remove('is-hidden');
     lightbox.refresh();
     return hits;
   } catch {
