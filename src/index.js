@@ -21,8 +21,8 @@ const lightbox = new SimpleLightbox('.gallery a', {
 });
 
 searchForm.addEventListener('submit', onSearch);
-loadMoreBtn.addEventListener('click', onLoadMore);
-window.addEventListener('scroll', infinitScroll);
+// loadMoreBtn.addEventListener('click', onLoadMore);
+window.addEventListener('scroll', infinitiScroll);
 
 function onSearch(e) {
   resetPage();
@@ -110,11 +110,11 @@ function Scroll() {
 }
 
 
-
-function infinitScroll() {
+function infinitiScroll() {
     while(true) {
       let windowRelativeBottom = document.documentElement.getBoundingClientRect().bottom;
-    if (windowRelativeBottom > document.documentElement.clientHeight + 100) break;
+      if (windowRelativeBottom > document.documentElement.clientHeight + 100) break;
+      currentPage += 1;
       return onLoadMore();
     }
   }
