@@ -1,10 +1,10 @@
 import './css/styles.css';
 import axios from "axios";
+
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
+
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
-
-import OnlyScroll from 'only-scrollbar';
 
 const API_KEY = '35141798-2bab5ffbeb44d8443663db9b1';
 const BASE_URL = 'https://pixabay.com/api/';
@@ -57,11 +57,12 @@ async function fetchImages(url){
     const hits = await response.data;
     imagesContainer.insertAdjacentHTML('beforeend', renderImageCards(hits));
     currentPage += 1;
+    Scroll();
     // loadMoreBtn.classList.remove('is-hidden');
     lightbox.refresh();
     return hits;
   } catch {
-    // loadMoreBtn.classList.add('is-hidden');
+    loadMoreBtn.classList.add('is-hidden');
     Notify.failure("We're sorry, but you've reached the end of search results.");
   }
 }
@@ -97,23 +98,17 @@ function resetPage(){
   currentPage = 1;
 }
 
+function Scroll() {
+  const { height: cardHeight } = document
+    .querySelector('.gallery')
+    .firstElementChild.getBoundingClientRect();
 
-// const scroll = new OnlyScroll(document.querySelector('.scroll-container'));
+  window.scrollBy({
+    top: cardHeight * 2,
+    behavior: 'smooth',
+  });
+}
 
-// const scroll = new OnlyScroll('#scroll-container-id', {
-//     damping: 0.8,
-//     eventContainer: window
-// });
-
-
-// const scroll = new OnlyScroll({ height: cardHeight } = document
-//   .querySelector(".gallery")
-//   .firstElementChild.getBoundingClientRect());
-
-// window.scrollBy({
-//   top: cardHeight * 2,
-//   behavior: "smooth",
-// });
 
 
 function infinitScroll() {
